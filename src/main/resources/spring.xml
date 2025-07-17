@@ -3,5 +3,58 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="product" class="com.ram.Product"/>
+    <!-- <bean id="alien1" class="com.example.Alien" scope="prototype"></bean> -->
+
+    <bean id="alien" class="com.ram.Alien" autowire="byType">
+        <!-- in byType it will throw error when there are two beans of same eg: Laptop and Desktop
+        are of same type, Computer, to avoid this we can use primary="true" tag in the bean you want to inject when
+        there is confusion because of 2 matching beans found -->
+        <property name="age" value="21"/>
+
+
+        <!-- <bean id="alien" class="com.example.Alien" autowire="byName"> -->
+        <!-- AutoWiring along with interface -->
+        <!-- the name and ref are same spring is smart enough to inject it automatically and we dont need another property tag-->
+        <!-- <property name="age" value="21"></property>    -->
+        <!-- <property name="com" ref="com"></property>   -->
+
+
+
+
+        <!-- instead of all overhead we can simply use indexing starting from 0
+        this is most widely used -->
+        <!-- <constructor-arg index="1" value="21"></constructor-arg>
+        <constructor-arg index="0" ref="lap"></constructor-arg> -->
+
+        <!-- for the below problem we use name attribute but works fine when they are in sequence
+        to overome this use @ConstructorProperties({"age","laptop"}) on top of your Alien Constructor -->
+        <!-- <constructor-arg name="age" ref="lap"></constructor-arg>
+        <constructor-arg name="laptop" value="21"></constructor-arg> -->
+
+
+        <!-- this works fine but what if there is another int type in Alien constructor, where will value="21" be injected
+        eg:Alien(int age,Laptop laptop, int salary) -->
+
+        <!-- this works fine when there are different parametes in constructor and also shouldn't use in inheritance -->
+        <!-- <constructor-arg type="int" value="21"></constructor-arg>
+        <constructor-arg type="com.example.Laptop" ref="lap"></constructor-arg>  -->
+
+
+        <!-- <constructor-arg ref="lap"></constructor-arg> this gives an error as sequence is not correct order
+       <constructor-arg value="21"></constructor-arg> the Alien expects Alien(int age,Laptop laptop) -->
+
+
+        <!--constructor injection-->
+        <!-- <constructor-arg value="21"></constructor-arg> -->
+        <!-- <constructor-arg ref="lap"></constructor-arg>  -->
+
+
+        <!--setter injection-->
+        <!-- <property name="age" value="21"></property> -->
+        <!-- <property name="laptop" ref="lap"></property> -->
+
+    </bean>
+    <bean id="com1" class="com.ram.Laptop" primary="true"/>
+    <bean id="com2" class="com.ram.Desktop"/>
+
 </beans>
