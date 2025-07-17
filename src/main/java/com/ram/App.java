@@ -1,13 +1,26 @@
 package com.ram;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+//import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App
 {
     public static void main( String[] args )
     {
-        ApplicationContext context=new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
+        Desktop dt=context.getBean(Desktop.class);
+        dt.compile();
+
+
+
+
+
+
+
+
+
+        //ApplicationContext context=new ClassPathXmlApplicationContext("spring.xml");
         //prototype scope example
         // Alien obj1=(Alien) context.getBean("alien1");
         // Alien obj2=(Alien) context.getBean("alien1");
@@ -22,11 +35,11 @@ public class App
         // Alien obj2=(Alien) context.getBean("alien");
         // System.out.println(obj2.getAge());
 
-//        Alien obj1=(Alien) context.getBean("alien");
-//        getBean by type
-        Alien obj1=context.getBean("alien", Alien.class);
-        System.out.println(obj1.getAge());
-        obj1.code();
+        //Alien obj1=(Alien) context.getBean("alien");
+        //getBean by type
+        //Alien obj1=context.getBean("alien", Alien.class);
+        //System.out.println(obj1.getAge());
+        //obj1.code();
 
     }
 }
