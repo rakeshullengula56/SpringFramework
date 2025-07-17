@@ -9,8 +9,20 @@ public class App
     public static void main( String[] args )
     {
         ApplicationContext context=new AnnotationConfigApplicationContext(AppConfig.class);
-        Desktop dt=context.getBean(Desktop.class);
+        //default name of your bean is name of your bean creating method
+        //Desktop dt=(Desktop) context.getBean("desktop");
+
+        //com2 is name of bean mentioned above bean creating method using @Bean(name="com2")
+        //By default scope of bean is singleton
+        Desktop dt= context.getBean("com2", Desktop.class);
+        dt.ram="16GB";
+        System.out.println(dt.ram);
         dt.compile();
+
+        //made it prototype using @Scope("prototype") on bean definition method
+        Desktop dt2= context.getBean("com2", Desktop.class);
+        System.out.println(dt2.ram);
+        dt2.compile();
 
 
 
